@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-md-4 col-md-offset-4">
+      <div>
+        <label>
+          count categories - {{stats.countCategories}},
+        </label>
+      </div>
+      <div>
+        <label>
+          count votes - {{stats.countVotes}},
+        </label>
+      </div>
+      <div>
+        top category -
+        <a routerLink='/category/{{stats.topCategoryId}}'>
+          {{stats.topCategory}},
+        </a>
+
+      </div>
+      <div class="btn-group" role="group">
+        <div class="input-group">
+          <input #searchInput
+                 type="text"
+                 class="form-control"
+                 placeholder="Input name"
+                 [(ngModel)]="searchParams.sought">
+        </div>
+
+        <select [(ngModel)]="searchParams.sortBy"
+                (ngModelChange)="newSearch()"
+                class="custom-select">
+          <option [value]="_CategoryParams.NAME" selected>Sort by</option>
+          <option [value]="_CategoryParams.RELEVANCE">Relevance</option>
+          <option [value]="_CategoryParams.NAME">Name</option>
+        </select>
+
+        <select [(ngModel)]="searchParams.order"
+                (ngModelChange)="newSearch()"
+                class="custom-select">
+          <option [value]="_Order.ASC" selected>Asc.</option>
+          <option [value]="_Order.DESC" value="Male">Desc.</option>
+        </select>
+      </div>
+
+      <div *ngFor="let category of categories" routerLink='/category/{{category.id}}' style="cursor: pointer">
+        <div>
+          <label>
+            {{category.name}},
+          </label>
+        </div>
+        <div>
+          <label>
+            {{category.votes}} votes ,
+          </label>
+        </div>
+
+        <div>
+          <label>
+            {{category.expiration_time | date}}
+          </label>
+        </div>
+        -----------------------------------------
+      </div>
+      <div
+        infiniteScroll
+        [infiniteScrollDistance]="3"
+        [infiniteScrollThrottle]="1000"
+        (scrolled)="onPageChanged()">
+      </div>
+
+    </div>
+  </div>
+</div>

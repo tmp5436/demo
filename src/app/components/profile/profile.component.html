@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-md-6 col-md-offset-4">
+      <div>
+        <label>
+          email: {{user.email}}
+        </label>
+      </div>
+
+      <div>
+        <label>
+          username: {{user.username}}
+        </label>
+      </div>
+
+      <div>
+        <label>
+          Edit email
+          <input type="text" [(ngModel)]="user.email">
+        </label>
+      </div>
+
+      <div>
+        <label>
+          Edit username
+          <input type="text" [(ngModel)]="user.username">
+        </label>
+      </div>
+      <div>
+        <button type="button" class="btn btn-primary" (click)="edit()">edit</button>
+      </div>
+
+    </div>
+  </div>
+</div>

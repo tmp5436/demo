@@ -1,0 +1,98 @@
+<div class="container" >
+  <div class="row mt-3">
+    <div class="col-md-6 col-md-offset-4">
+      <div>
+        <label>
+          Category name: {{category.name}}
+        </label>
+      </div>
+      <div>
+        <label>
+          Expiration time: {{category.expiration_time | date}}
+        </label>
+      </div>
+      <div>
+        <a routerLink='/profile/{{category.creator}}'>
+          Creator
+        </a>
+      </div>
+      <div>
+        <label>
+          Edit category name
+          <input type="text" [(ngModel)]="category.name">
+        </label>
+      </div>
+      <div>
+        <label>
+          Edit Expiration time
+          <input type="date" [(ngModel)]="category.expiration_time">
+        </label>
+      </div>
+      <div>
+        <button type="button" class="btn btn-primary" (click)="edit()">edit</button>
+      </div>
+
+      <div class="btn-group" role="group">
+        <div class="input-group">
+          <input #searchInput
+                 type="text"
+                 class="form-control"
+                 placeholder="Input name"
+                 [(ngModel)]="searchParams.sought">
+        </div>
+
+        <select [(ngModel)]="searchParams.sortBy"
+                (ngModelChange)="newSearch()"
+                class="custom-select">
+          <option [value]="_Params.NAME" selected>Sort by</option>
+          <option [value]="_Params.RELEVANCE">Relevance</option>
+          <option [value]="_Params.NAME">Name</option>
+        </select>
+
+        <select [(ngModel)]="searchParams.order"
+                (ngModelChange)="newSearch()"
+                class="custom-select">
+          <option [value]="_Order.ASC" selected>Asc.</option>
+          <option [value]="_Order.DESC" value="Male">Desc.</option>
+        </select>
+      </div>
+
+      <div *ngFor="let candidate of candidates; let i = index"
+           style="cursor: pointer;"
+            [ngStyle]="{'background': i % 2 === 0 ? 'aliceblue' : 'white'} "
+           (click)="changeVote(candidate.id)">
+
+        <div style="float: right" >
+          <i class="fa fa-check-square-o fa-3x" aria-hidden="true"
+             [ngStyle]="{'color': candidate.id === vote ? 'chartreuse' : 'gainsboro'}"> </i>
+        </div>
+
+        <div>
+          <label>
+            {{candidate.name}},
+          </label>
+        </div>
+        <div>
+          <label>
+            {{candidate.countvotes}} votes ,
+          </label>
+        </div>
+
+        ------------------------------------------
+      </div>
+      <div style="background: aquamarine">
+        Add new candidate
+        <div>
+          <label>
+            Enter candidate name
+            <input type="text" [(ngModel)]="newCandidate.name">
+          </label>
+        </div>
+        <div>
+          <button type="button" class="btn btn-primary" (click)="addNewCandidate()">Add</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
